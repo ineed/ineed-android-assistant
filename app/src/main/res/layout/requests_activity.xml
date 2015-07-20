@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".requestActivity"
+    android:background="#FFF"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollNoContent"
+        android:visibility="gone"
+        android:layout_weight="0.7">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="top|center_vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/requests1"
+                android:id="@+id/textView1"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.2"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="center_horizontal"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/requests2"
+                android:id="@+id/textView2"
+                android:gravity="center_horizontal"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/requests3"
+                android:id="@+id/textView3"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                android:layout_weight="0.95" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/requests4"
+                android:id="@+id/textView4"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView4"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/requests_example"
+                    android:layout_weight="0.2" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/requests5"
+                android:id="@+id/textView5"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:textColor="#000"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp" />
+            <Button
+                android:id="@+id/buttonNext"
+                android:text="@string/create_request"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_green"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textAllCaps="false"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listContent"
+        android:visibility="gone"
+        android:layout_weight="0.7">
+    </ListView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e6e7e7"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/toolbarRequests">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageRequests"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/requests_blue" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/requests"
+                android:id="@+id/textRequests"
+                android:textColor="#007aff"
+                android:textSize="12sp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/toolbarMenu">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageMenu"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/menu_icon" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:id="@+id/textMenu"
+                android:textColor="#929292"
+                android:textSize="12sp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/toolbarProfile">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageProfile"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/profile_icon"
+                android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile"
+                android:id="@+id/textProfile"
+                android:textColor="#929292"
+                android:textSize="12sp"
+                android:layout_gravity="bottom|center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

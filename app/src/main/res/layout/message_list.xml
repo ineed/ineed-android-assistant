@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="3dp"
+    android:background="#f2f2f2">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/admin">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yesterday"
+            android:textColor="#aaaaaa"
+            android:textSize="12sp"
+            android:id="@+id/textAdminDate"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="5dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <co.ineed.ineed.RoundedImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="10dp"
+            android:id="@+id/imageAdmin"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A lot of text about the request "
+                    android:textSize="12sp"
+                    android:textColor="#000"
+                    android:padding="10dp"
+                    android:id="@+id/textAdminMessage"
+                    android:background="@drawable/rounded_corner"
+                    android:layout_marginRight="60dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:id="@+id/textAdminName"
+            android:textColor="#000"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adminImage">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yesterday"
+            android:textColor="#aaaaaa"
+            android:textSize="12sp"
+            android:id="@+id/textAdminDateImage"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="5dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <co.ineed.ineed.RoundedImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="10dp"
+                android:id="@+id/imageAdminImage"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+                <com.loopj.android.image.SmartImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageAdminPhoto"
+                    android:background="@drawable/rounded_corner"
+                    android:scaleType="centerCrop"
+                    android:layout_marginRight="60dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:id="@+id/textAdminNameImage"
+            android:textColor="#000"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adminButton">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yesterday"
+            android:textColor="#aaaaaa"
+            android:textSize="12sp"
+            android:id="@+id/textAdminDateButton"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="5dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <co.ineed.ineed.RoundedImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="10dp"
+                android:id="@+id/imageAdminButton"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonAdminButton"
+                android:text="@string/link_payment"
+                android:background="@drawable/button_green_small"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="#FFF"
+                android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:id="@+id/textAdminNameButton"
+            android:textColor="#000"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yesterday"
+            android:textColor="#aaaaaa"
+            android:textSize="12sp"
+            android:id="@+id/textUserDate"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="5dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A lot of text about the request "
+                    android:textSize="12sp"
+                    android:textIsSelectable="true"
+                    android:textColor="#000"
+                    android:padding="10dp"
+                    android:background="@drawable/rounded_corner"
+                    android:id="@+id/textUserMessage"
+                    android:layout_marginLeft="60dp"
+                    android:layout_gravity="right" />
+            </LinearLayout>
+            <co.ineed.ineed.RoundedImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/assistant_profile"
+                android:scaleType="centerCrop"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/imageUser"
+                android:layout_gravity="bottom|right" />
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:id="@+id/textUserName"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:layout_gravity="right" />
+    </LinearLayout>
+</LinearLayout>
