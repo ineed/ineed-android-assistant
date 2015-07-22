@@ -101,19 +101,37 @@ public class RequestsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn = (Button) findViewById(R.id.buttonAccount);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RequestsActivity.this, CreateAccountActivity.class);
+                user = new User();
+                intent.putExtra("user", user);
+                startActivity(intent);
+            }
+        });
 
         String json = prefs.getString("requests", "");
         if (json.length() > 15) {
-            ListView lv = (ListView) findViewById(R.id.listContent);
-            lv.setVisibility(View.VISIBLE);
+            LinearLayout ll = (LinearLayout) findViewById(R.id.layoutContent);
+            ll.setVisibility(View.VISIBLE);
             Gson gson = new Gson();
             requests = gson.fromJson(json, Requests.class);
             buildRequests(json);
+            ll = (LinearLayout) findViewById(R.id.layoutHasAccount);
+            ll.setVisibility(View.VISIBLE);
+            ll = (LinearLayout) findViewById(R.id.layoutNoAccount);
+            ll.setVisibility(View.GONE);
         }else {
             progressDialog = new ProgressDialog(RequestsActivity.this);
             progressDialog.setMessage(getResources().getString(R.string.fetching_requests));
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
+            LinearLayout ll = (LinearLayout) findViewById(R.id.layoutNoAccount);
+            ll.setVisibility(View.VISIBLE);
+            ll = (LinearLayout) findViewById(R.id.layoutHasAccount);
+            ll.setVisibility(View.GONE);
         }
         URL url;
         try {
@@ -224,8 +242,8 @@ public class RequestsActivity extends AppCompatActivity {
                             sv.setVisibility(View.VISIBLE);
                         }else {
                             item.setVisible(true);
-                            ListView lv = (ListView) findViewById(R.id.listContent);
-                            lv.setVisibility(View.VISIBLE);
+                            LinearLayout ll = (LinearLayout) findViewById(R.id.layoutContent);
+                            ll.setVisibility(View.VISIBLE);
                             SharedPreferences.Editor editor = prefs.edit();
                             editor.putString("requests", result);
                             editor.putBoolean("hasRequest", true);

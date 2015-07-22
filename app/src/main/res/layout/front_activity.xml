@@ -12,25 +12,33 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:background="#efeff4"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/search"
-            android:background="#FFF"
+            android:id="@+id/autocomplete"
+            android:background="@drawable/search_rounded"
             android:autoText="false"
             android:hint="@string/search_hint"
             android:inputType="text"
             android:padding="5dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:dropDownWidth="match_parent"
+            android:dropDownAnchor="@+id/layoutTarget"/>
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/layoutTarget" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutScrollMenu"
         android:layout_weight="0.7">
         <ScrollView
             android:layout_width="match_parent"
@@ -67,10 +75,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/general"
                 android:textColor="#FFF"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_centerInParent="true"
-                android:textStyle="bold" />
+                android:textIsSelectable="true" />
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout

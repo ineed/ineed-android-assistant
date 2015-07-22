@@ -6,18 +6,33 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.TypedArray;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Gallery;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -25,6 +40,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,13 +62,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     private SharedPreferences prefs;
     private Utils utils;
     private User user;
     final Gson gson = new Gson();
     private List<Address> addresses;
     private co.ineed.ineed.Location location;
+    private WebView webView;
+    private boolean loadingFinished = true;
+    private boolean redirect = false;
+    private boolean done = false;
+    private String html;
+    private AssetManager am;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,15 +103,15 @@ public class MainActivity extends AppCompatActivity {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-
-
-
-
         user = new User();
         String json = prefs.getString("user", "");
         if (json.length() == 0) {
             // New user
+            if (prefs.getBoolean("completed", false)) {
+                Intent intent = new Intent(MainActivity.this, FrontActivity.class);
+                startActivity(intent);
+                return;
+            }
             setContentView(R.layout.activity_main);
             Button btn = (Button) findViewById(R.id.buttonNext);
             btn.setOnClickListener(new View.OnClickListener() {
@@ -98,22 +121,62 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            webView = (WebView) findViewById(R.id.webview);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.setWebViewClient(new WebViewClient() {
+
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String urlNewString) {
+                    if (!loadingFinished) {
+                        redirect = true;
+                    }
+
+                    loadingFinished = false;
+                    webView.loadUrl(urlNewString);
+                    return true;
+                }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    if (!redirect) {
+                        loadingFinished = true;
+                    }
+                    if (loadingFinished && !redirect) {
+                        //HIDE LOADING IT HAS FINISHED
+                    } else {
+                        redirect = false;
+                    }
+
+                }
+            });
+            am = getAssets();
+            InputStream inputStream = null;
+            try {
+                inputStream = am.open("index.html");
+                StringBuilder buf = new StringBuilder();
+                BufferedReader in =  new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                String str;
+                while ((str = in.readLine()) != null) {
+                    buf.append(str);
+                }
+                in.close();
+                html = buf.toString();
+            } catch (IOException e) {
+
+            }
+            webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "utf-8", null);
+            //webView.loadUrl("https://lingos.johnburch.co.uk/test");
         }else{
             // Existing user;
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("completed", true);
+            editor.commit();
             user = gson.fromJson(json, User.class);
-            if (user.isPaymentEnabled == null ||user.isPaymentEnabled == false ) {
-                Intent intent = new Intent(MainActivity.this, LinkPaymentActivity.class);
-                startActivity(intent);
-            }else{
-                Intent intent = new Intent(MainActivity.this, FrontActivity.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(MainActivity.this, FrontActivity.class);
+            startActivity(intent);
         }
     }
-
-
-
-
 
 
     private class doSendRegIdTask extends AsyncTask<URL, Integer, String> {

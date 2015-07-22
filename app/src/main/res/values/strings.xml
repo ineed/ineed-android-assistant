@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">iNeed</string>
     <string name="api">https://data-test.ineedapp.com:443/assistant/v1/</string>
+    <string name="api_image">https://data-test.ineedapp.com:443/images/v1/upload</string>
     <string name="stripe_key">pk_test_Ssx2xsAFAb3pWZixAL45PJt7</string>
     <string name="project_number">AIzaSyCVSt1Y2maQ4WMSdgr7FLU0hCXMIhDFqXE</string>
     <string name="image_url">https://data-test.ineedapp.com/images/v1/images/</string>
@@ -37,7 +38,10 @@
     <string name="error5">Please enter a password</string>
     <string name="error6">Email address already registered</string>
     <string name="error7">Invalid Email address or Password</string>
+    <string name="error9">Please enter your First Name</string>
+    <string name="error10">Please enter your Surname</string>
     <string name="creating_account">Creating account...</string>
+    <string name="validating_details">Validating Details...</string>
     <string name="signing_in">Signing in...</string>
     <string name="link_payment">Link Payment</string>
     <string name="link_payment1">Securely &amp; easily pay providers.</string>
@@ -52,7 +56,7 @@
     <string name="enter_card_expiry">Enter your card\'s expiry date MM/YY</string>
     <string name="enter_card_cvv">Enter your card\'s CVV number</string>
     <string name="validating_card">Validating your card...</string>
-    <string name="requests1">You\'ll be able to see all your\nrequests and there status here.</string>
+    <string name="requests1">You\'ll be able to see all your\nrequests and their status here.</string>
     <string name="requests2">Your Assistant\nat iNeed</string>
     <string name="requests3">Your request and\nlast message</string>
     <string name="requests4">Status and\nupdate time</string>
@@ -87,9 +91,22 @@
     <string name="what">What</string>
     <string name="where">Where</string>
     <string name="when">When</string>
-    <string name="send_picture">Send a Picture</string>
+    <string name="send_picture">Send an Attachement</string>
     <string name="take_picture">Take a picture</string>
-    <string name="choose_library">Choose from library</string>
+    <string name="choose_library">Choose from Image Library</string>
+    <string name="record_request">Record Audio</string>
+    <string name="record_video">Record a Video</string>
     <string name="cancel">Cancel</string>
     <string name="sending_request">Sending request...</string>
+    <string name="front_strap1">EVERYONE\'S PERSONAL ASSISTANT</string>
+    <string name="front_strap2">Ask for anything you need and your assigned personal assistant will be in touch to help.</string>
+    <string name="front_strap3">We only work with trusted retailers &amp; providers including;</string>
+    <string name="first_name">First Name</string>
+    <string name="surname">Surname</string>
+    <string name="agree_text1">By creating an iNeed account, you agree to our</string>
+    <string name="agree_terms">Terms</string>
+    <string name="agree_text2">and that you have read our</string>
+    <string name="agree_privacy">Privacy Policy</string>
+    <string name="requests_no_account">Creat your free account now to start making requests</string>
+    <string name="back">Back</string>
 </resources>

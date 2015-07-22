@@ -142,51 +142,57 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="top"
-        android:gravity="top|start">
+        android:id="@+id/layoutMessages"
+        android:gravity="top|start"
+        android:layout_weight="0.7">
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/listMessages"
-            android:layout_weight="0.7">
-        </ListView>
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#f5f6f6"
-            android:paddingLeft="3dp"
-            android:paddingTop="3dp"
-            android:focusable="false"
-            android:paddingRight="3dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/paperclip"
-                android:src="@drawable/paper_clip"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp" />
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:hint="@string/new_message"
-                android:id="@+id/message"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/send"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/send"
-                android:layout_marginRight="5dp"
-                android:textColor="#adadad"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:id="@+id/listMessages"            >
+        </ListView>
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#f5f6f6"
+        android:paddingLeft="3dp"
+        android:paddingTop="3dp"
+        android:focusable="false"
+        android:paddingRight="3dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/paperclip"
+            android:src="@drawable/paper_clip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="@string/new_message"
+            android:id="@+id/message"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/send"
+            android:layout_marginRight="5dp"
+            android:textColor="#adadad"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </LinearLayout>

@@ -15,6 +15,8 @@
     <uses-permission android:name="co.ineed.gcm.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -31,6 +33,10 @@
         </activity>
         <activity
             android:name=".CreateAccountActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+        </activity>
+        <activity
+            android:name=".CreateAccountNameActivity"
             android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
@@ -77,6 +83,10 @@
         </activity>
         <activity
             android:name=".WebActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+        </activity>
+        <activity
+            android:name=".RecordAudio"
             android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <!-- Activities responsible for gathering payment info -->

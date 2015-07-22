@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +42,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
         utils = new Utils();
+        prefs = getSharedPreferences("user", 0);
         getSupportActionBar().setTitle(getResources().getString(R.string.existing_account));
         Button btn = (Button) findViewById(R.id.buttonNext);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +102,30 @@ public class SignInActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_cancel, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_cancel) {
+            if (prefs.getBoolean("completed", false)) {
+                finish();
+            }else{
+                Intent intent = new Intent(SignInActivity.this, FrontActivity.class);
+                startActivity(intent);
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
     private class signIn extends AsyncTask<URL, Integer, String> {
         protected String doInBackground(URL... urls) {
@@ -184,8 +210,14 @@ public class SignInActivity extends AppCompatActivity {
                     editor.putString("session", json.getString("sessionToken"));
                     editor.commit();
                     utils.getUser(SignInActivity.this);
+
+                    // Now wait until user is populated
+
+
+
                     Intent intent = new Intent(SignInActivity.this, LinkPaymentActivity.class);
                     startActivity(intent);
+                    finish();
 
                     //finish();
                 } catch (JSONException e) {

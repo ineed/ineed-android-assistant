@@ -214,4 +214,56 @@
             android:textSize="10sp"
             android:layout_gravity="right" />
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userImage"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yesterday"
+            android:textColor="#aaaaaa"
+            android:textSize="12sp"
+            android:id="@+id/textUserDateImage"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="5dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+                <com.loopj.android.image.SmartImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageUserPhoto"
+                    android:background="@drawable/rounded_corner"
+                    android:scaleType="centerCrop"
+                    android:layout_marginLeft="60dp"
+                    android:layout_gravity="right" />
+            </LinearLayout>
+            <co.ineed.ineed.RoundedImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="bottom|right"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/imageUserImage"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:id="@+id/textUserNameImage"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:layout_gravity="right" />
+    </LinearLayout>
 </LinearLayout>

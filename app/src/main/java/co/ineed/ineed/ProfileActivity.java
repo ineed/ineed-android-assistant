@@ -58,8 +58,32 @@ public class ProfileActivity extends AppCompatActivity {
         });
         user = new User();
         String json = prefs.getString("user", "");
-        user = gson.fromJson(json, User.class);
-        buildProfile();
+        if (json.length() > 0) {
+            user = gson.fromJson(json, User.class);
+            LinearLayout ll = (LinearLayout) findViewById(R.id.layoutCreateAccount);
+            ll.setVisibility(View.GONE);
+            buildProfile();
+        }else{
+            LinearLayout ll = (LinearLayout) findViewById(R.id.layoutCreateAccount);
+            ll.setVisibility(View.VISIBLE);
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ProfileActivity.this, CreateAccountActivity.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
+                }
+            });
+            ll = (LinearLayout) findViewById(R.id.layoutEmail);
+            ll.setVisibility(View.GONE);
+            ll = (LinearLayout) findViewById(R.id.layoutCard);
+            ll.setVisibility(View.GONE);
+            ll = (LinearLayout) findViewById(R.id.layoutSignOut);
+            ll.setVisibility(View.GONE);
+            ll = (LinearLayout) findViewById(R.id.layoutUserDetails);
+            ll.setVisibility(View.GONE);
+        }
+        /*
         URL url;
         try {
             url = new URL(getString(R.string.api) + "users/me");
@@ -67,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        */
         LinearLayout ll = (LinearLayout) findViewById(R.id.layoutCard);
         ll.setOnClickListener(new View.OnClickListener() {
             @Override

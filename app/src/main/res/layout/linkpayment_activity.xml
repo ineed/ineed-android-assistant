@@ -97,8 +97,9 @@
                             android:autoText="false"
                             android:layout_marginBottom="10dp"
                             android:hint="@string/card_number"
-                            android:inputType="textEmailAddress"
-                            android:padding="10dp" />
+                            android:maxLength="19"
+                            android:padding="10dp"
+                            android:inputType="number" />
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
@@ -111,10 +112,11 @@
                                 android:background="@drawable/rounded_corner"
                                 android:autoText="false"
                                 android:hint="@string/card_expiry"
-                                android:inputType="textEmailAddress"
+                                android:maxLength="5"
                                 android:padding="10dp"
                                 android:layout_weight="0.1"
-                                android:layout_marginRight="10dp" />
+                                android:layout_marginRight="10dp"
+                                android:inputType="number" />
                             <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -123,9 +125,10 @@
                                 android:background="@drawable/rounded_corner"
                                 android:autoText="false"
                                 android:hint="@string/card_cvv"
-                                android:inputType="textEmailAddress"
+                                android:maxLength="4"
                                 android:padding="10dp"
-                                android:layout_weight="0.2"/>
+                                android:layout_weight="0.2"
+                                android:inputType="number" />
                         </LinearLayout>
                         <Button
                             android:id="@+id/buttonNext"

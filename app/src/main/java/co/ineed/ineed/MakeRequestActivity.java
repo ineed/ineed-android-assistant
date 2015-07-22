@@ -285,13 +285,18 @@ public class MakeRequestActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(String result) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("hasRequest", true);
-            editor.commit();
             try {
                 JSONObject JSONrequest = new JSONObject(result);
                 requestId = JSONrequest.getString("id");
-                handler.postDelayed(runnable, 2000);
+                //handler.postDelayed(runnable, 2000);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("requestId", requestId);
+                editor.commit();
+                progressDialog.hide();
+                Intent intent = new Intent(MakeRequestActivity.this, NotificationRequest.class);
+                intent.putExtra("requestId", requestId);
+                startActivity(intent);
+                finish();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

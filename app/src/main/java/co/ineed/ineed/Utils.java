@@ -141,6 +141,14 @@ public class Utils {
         return prefs.getString("session", "");
     }
 
+    public final static void setPref(Context ctx, String key, String value) {
+        context = ctx;
+        SharedPreferences prefs = context.getSharedPreferences("user", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
     public void getUser(Context ctx) {
         context = ctx;
         URL url;

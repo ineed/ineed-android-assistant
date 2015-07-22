@@ -9,6 +9,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
@@ -38,6 +41,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.regex.Pattern;
 
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
@@ -53,8 +57,8 @@ public class LinkPaymentActivity extends AppCompatActivity {
     private com.stripe.android.Stripe stripe;
     private ProgressDialog progressDialog;
     private String cardToken;
-    private Boolean has_close = false;
-
+    static final Pattern CODE_PATTERN = Pattern.compile("([0-9]{0,4})|([0-9]{4}-)+|([0-9]{4}-[0-9]{0,4})+");
+    static final Pattern CODE_PATTERN_DATE = Pattern.compile("^(1[0-2]|0[1-9]|\\d)\\/(20\\d{2}|19\\d{2}|0(?!0)\\d|[1-9]\\d)$");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +66,6 @@ public class LinkPaymentActivity extends AppCompatActivity {
         utils = new Utils();
         prefs = getSharedPreferences("user", 0);
         getSupportActionBar().setTitle(getResources().getString(R.string.link_payment));
-        if (this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("has_close")) {
-            has_close = true;
-        }
         LinearLayout scanCard = (LinearLayout) findViewById(R.id.scan_card);
         scanCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,17 +161,116 @@ public class LinkPaymentActivity extends AppCompatActivity {
 
             }
         });
+        final EditText editCardNumber = (EditText) findViewById(R.id.editCardNumber);
+        editCardNumber.addTextChangedListener(new TextWatcher() {
 
-        Intent intent = new Intent(LinkPaymentActivity.this, RegisterNotifications.class);
-        startActivity(intent);
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    if (s.length() > 0 && !CODE_PATTERN.matcher(s).matches()) {
+                        String input = s.toString();
+                        String numbersOnly = keepNumbersOnly(input);
+                        String code = formatNumbersAsCode(numbersOnly);
+                        editCardNumber.removeTextChangedListener(this);
+                        editCardNumber.setText(code);
+                        // You could also remember the previous position of the cursor
+                        editCardNumber.setSelection(code.length());
+                        editCardNumber.addTextChangedListener(this);
+                    }
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            private String keepNumbersOnly(CharSequence s) {
+                return s.toString().replaceAll("[^0-9]", ""); // Should of course be more robust
+            }
+
+            private String formatNumbersAsCode(CharSequence s) {
+                int groupDigits = 0;
+                String tmp = "";
+                try {
+                    for (int i = 0; i < s.length(); ++i) {
+                        tmp += s.charAt(i);
+                        ++groupDigits;
+                        if (groupDigits == 4) {
+                            tmp += "-";
+                            groupDigits = 0;
+                        }
+                    }
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+                return tmp;
+            }
+        });
+
+        final EditText editCardExpiry = (EditText) findViewById(R.id.editCardExpiry);
+        editCardExpiry.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    if (s.length() > 0 && !CODE_PATTERN_DATE.matcher(s).matches()) {
+                        String input = s.toString();
+                        String numbersOnly = keepNumbersOnly(input);
+                        String code = formatNumbersAsCodeExpiry(numbersOnly);
+                        editCardExpiry.removeTextChangedListener(this);
+                        editCardExpiry.setText(code);
+                        // You could also remember the previous position of the cursor
+                        editCardExpiry.setSelection(code.length());
+                        editCardExpiry.addTextChangedListener(this);
+                    }
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            private String keepNumbersOnly(CharSequence s) {
+                return s.toString().replaceAll("[^0-9]", ""); // Should of course be more robust
+            }
+
+            private String formatNumbersAsCodeExpiry(CharSequence s) {
+
+                int groupDigits = 0;
+                String tmp = "";
+                try {
+                    for (int i = 0; i < s.length(); ++i) {
+                        tmp += s.charAt(i);
+                        ++groupDigits;
+                        if (groupDigits == 2) {
+                            tmp += "/";
+                            groupDigits = 0;
+                        }
+                    }
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+                return tmp;
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        if (has_close) {
-            getMenuInflater().inflate(R.menu.menu_cancel, menu);
-        }
+        getMenuInflater().inflate(R.menu.menu_cancel, menu);
         return true;
     }
 
@@ -181,7 +281,12 @@ public class LinkPaymentActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_cancel) {
-            finish();
+            if (prefs.getBoolean("completed", false)) {
+                finish();
+            }else{
+                Intent intent = new Intent(LinkPaymentActivity.this, FrontActivity.class);
+                startActivity(intent);
+            }
         }
         return super.onOptionsItemSelected(item);
     }

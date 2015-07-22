@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +53,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.create_account_activity);
         utils = new Utils();
         prefs = getSharedPreferences("user", 0);
+        user = (User) getIntent().getSerializableExtra("user");
         getSupportActionBar().setTitle(getResources().getString(R.string.create_account));
         TextView signIn = (TextView) findViewById(R.id.signin);
         signIn.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +63,15 @@ public class CreateAccountActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        if (user.email != null) {
+            // Return from email already registered
+            EditText txt = (EditText) findViewById(R.id.editEmail);
+            txt.requestFocus();
+            txt = (EditText) findViewById(R.id.editMobile);
+            txt.setText(user.phone);
+            txt = (EditText) findViewById(R.id.editPassword);
+            txt.setText(user.password);
+        }
         Button btn = (Button) findViewById(R.id.buttonNext);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +103,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                             .show();
                     return;
                 }
+                user.email = txt1.getText().toString();
                 final EditText txt2 = (EditText) findViewById(R.id.editMobile);
                 if (txt2.getText().length() == 0) {
                     new AlertDialog.Builder(CreateAccountActivity.this)
@@ -119,6 +131,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                             .show();
                     return;
                 }
+                user.phone = txt2.getText().toString();
                 final EditText txt3 = (EditText) findViewById(R.id.editPassword);
                 if (txt3.getText().length() == 0) {
                     new AlertDialog.Builder(CreateAccountActivity.this)
@@ -133,8 +146,19 @@ public class CreateAccountActivity extends AppCompatActivity {
                             .show();
                     return;
                 }
+                user.password = txt3.getText().toString();
+                Gson gson = new Gson();
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("user", gson.toJson(user));
+                Intent intent = new Intent(CreateAccountActivity.this, CreateAccountNameActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                finish();
+                /*
+
+
                 progressDialog = new ProgressDialog(CreateAccountActivity.this);
-                progressDialog.setMessage(getResources().getString(R.string.creating_account));
+                progressDialog.setMessage(getResources().getString(R.string.validating_details));
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.show();
                 URL url;
@@ -144,9 +168,36 @@ public class CreateAccountActivity extends AppCompatActivity {
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
+                */
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_cancel, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_cancel) {
+            Boolean c = prefs.getBoolean("completed", false);
+            if (prefs.getBoolean("completed", false)) {
+                finish();
+            }else{
+                Intent intent = new Intent(CreateAccountActivity.this, FrontActivity.class);
+                startActivity(intent);
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private class createAccount extends AsyncTask<URL, Integer, String> {
         protected String doInBackground(URL... urls) {
             String result = "";
@@ -257,8 +308,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                 user.password = password;
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("user", gson.toJson(user));
-                editor.commit();
-                Intent intent = new Intent(CreateAccountActivity.this, LinkPaymentActivity.class);
+                Intent intent = new Intent(CreateAccountActivity.this, CreateAccountNameActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         }
