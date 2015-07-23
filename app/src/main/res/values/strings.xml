@@ -4,6 +4,7 @@
     <string name="api_image">https://data-test.ineedapp.com:443/images/v1/upload</string>
     <string name="stripe_key">pk_test_Ssx2xsAFAb3pWZixAL45PJt7</string>
     <string name="project_number">AIzaSyCVSt1Y2maQ4WMSdgr7FLU0hCXMIhDFqXE</string>
+    <string name="hockeyapp_key">fda23b837b792b7b4262a24ac90cc753</string>
     <string name="image_url">https://data-test.ineedapp.com/images/v1/images/</string>
     <string name="next">Next</string>
     <string name="ineed">iNeed</string>
@@ -109,4 +110,6 @@
     <string name="agree_privacy">Privacy Policy</string>
     <string name="requests_no_account">Creat your free account now to start making requests</string>
     <string name="back">Back</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="loading">Loading...</string>
 </resources>

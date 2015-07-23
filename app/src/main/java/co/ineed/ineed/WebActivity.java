@@ -22,6 +22,8 @@ public class WebActivity extends AppCompatActivity {
     private User user;
     private ProgressDialog progressDialog;
     private WebView mWebView;
+    private boolean loadingFinished = true;
+    private boolean redirect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,40 @@ public class WebActivity extends AppCompatActivity {
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new WebViewClient());
+
+        progressDialog = new ProgressDialog(WebActivity.this);
+        progressDialog.setMessage(getResources().getString(R.string.loading));
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+
+        mWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String urlNewString) {
+                if (!loadingFinished) {
+                    redirect = true;
+                }
+
+                loadingFinished = false;
+                mWebView.loadUrl(urlNewString);
+                return true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (!redirect) {
+                    loadingFinished = true;
+                }
+                if (loadingFinished && !redirect) {
+                    progressDialog.hide();
+                } else {
+                    redirect = false;
+                }
+
+            }
+        });
+
+
         String url = (String) getIntent().getSerializableExtra("url");
         String title = (String) getIntent().getSerializableExtra("title");
         if (title != null) {

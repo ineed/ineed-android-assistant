@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import net.hockeyapp.android.FeedbackManager;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -131,6 +133,14 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        ll = (LinearLayout) findViewById(R.id.layoutFeedback);
+        ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FeedbackManager.register(ProfileActivity.this, getString(R.string.hockeyapp_key), null);
+                FeedbackManager.showFeedbackActivity(ProfileActivity.this);
             }
         });
     }

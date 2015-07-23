@@ -84,7 +84,7 @@
                     android:id="@+id/imageView4"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/requests_example"
-                    android:layout_marginBottom="40dp" />
+                    android:layout_marginBottom="30dp" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
@@ -136,7 +136,7 @@
                     android:textColor="#000"
                     android:textSize="14sp"
                     android:textStyle="normal"
-                    android:layout_marginBottom="20dp" />
+                    android:layout_marginBottom="10dp" />
                 <Button
                     android:id="@+id/buttonAccount"
                     android:text="@string/create_account"
